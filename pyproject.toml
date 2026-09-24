@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "housing-decision-agent"
+version = "0.2.0.dev0"
+description = "Private, AI-ready assistant for choosing an apartment, condo or house: score homes against your budget, commute and deal-breakers, and your current home."
+readme = "README.md"
+keywords = ["housing", "apartment-search", "apartment-hunting", "rental", "real-estate", "relocation",
+            "moving", "home-search", "decision-making", "local-first", "privacy", "ai-agent", "llm", "cli"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Environment :: Web Environment",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Office/Business",
+    "Topic :: Utilities",
+]
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Bryan Totty" }]
+dependencies = []
+
+[project.scripts]
+housing = "housing_agent.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-p no:cacheprovider"
+pythonpath = ["src", "."]
+testpaths = ["tests"]

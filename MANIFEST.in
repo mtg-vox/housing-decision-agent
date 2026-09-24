@@ -1,0 +1,13 @@
+include LICENSE README.md AGENTS_CLI.md PUBLISH_MANIFEST.txt
+include setup.py pyproject.toml
+recursive-include app/static *
+recursive-include profile.example *.json *.md
+recursive-include regions *.md *.yaml *.json
+recursive-include docs *.md
+prune profile.local
+prune legacy
+prune agents
+prune data
+prune backups
+prune state
+global-exclude *.pyc *.pyo

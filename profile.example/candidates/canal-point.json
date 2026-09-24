@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "id": "canal-point",
+  "name": "Canal Point",
+  "kind": "apartment",
+  "status": "active",
+  "is_baseline": false,
+  "location": {
+    "address": "500 Example Ave, Harborview",
+    "neighborhood": "Old Harbor",
+    "lat": 40.008,
+    "lng": -74.993,
+    "precision": "approximate"
+  },
+  "facts": {
+    "base_rent": {
+      "value": 2300,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "parking_monthly": {
+      "value": 150,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "required_monthly_fees": {
+      "value": 90,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "move_in_cost": {
+      "value": 3000,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "anchor_minutes": {
+      "value": {
+        "work": {
+          "walk": 22,
+          "drive": 9
+        },
+        "gym": {
+          "walk": 9,
+          "drive": 4
+        }
+      },
+      "kind": "commute",
+      "source": "https://example.com/maps",
+      "checked": "2026-09-01",
+      "confidence": "medium"
+    }
+  },
+  "risk_flags": [
+    {
+      "id": "heavy_construction_adjacent"
+    }
+  ],
+  "judgments": {
+    "cost_value": {
+      "score": 5,
+      "rationale": "Fictional sample rationale for cost value.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "daily_lifestyle": {
+      "score": 8,
+      "rationale": "Fictional sample rationale for daily lifestyle.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "social_life": {
+      "score": 8,
+      "rationale": "Fictional sample rationale for social life.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "work_and_focus": {
+      "score": 7,
+      "rationale": "Fictional sample rationale for work and focus.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "space_and_quiet": {
+      "score": 8,
+      "rationale": "Fictional sample rationale for space and quiet.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "friction_risk": {
+      "score": 8,
+      "rationale": "Fictional sample rationale for friction risk.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    }
+  },
+  "notes": {
+    "parking": "Garage, fictional"
+  },
+  "source_urls": [
+    "https://example.com/listings/canal-point"
+  ],
+  "verdict": "",
+  "created_at": "2026-09-01T12:00:00Z",
+  "updated_at": "2026-09-15T12:00:00Z",
+  "version": 1
+}

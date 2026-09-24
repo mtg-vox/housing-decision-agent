@@ -1,0 +1,42 @@
+name: ci
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  # This runs AFTER a push. Run scripts/prepublish.py locally before publication.
+  # The mixed private source checkout intentionally cannot pass this public-only gate.
+  public-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Enforce exact public inventory and privacy before artifacts
+        run: python scripts/privacy_scan.py --public-check
+      - name: Install pinned checksum-verified secret scanner
+        run: |
+          python scripts/install_gitleaks.py "$RUNNER_TEMP/gitleaks-bin/gitleaks"
+          printf '%s\n' "$RUNNER_TEMP/gitleaks-bin" >> "$GITHUB_PATH"
+      - name: Scan and verify exact clean export
+        run: |
+          python scripts/prepublish.py "$RUNNER_TEMP/public-export" --require-secrets
+          python scripts/prepublish.py "$RUNNER_TEMP/public-export" --verify "$RUNNER_TEMP/public-export.sha256"
+  test:
+    needs: public-gate
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install pytest
+      - run: PYTHONPATH=src python -m pytest -q
+      - run: node --check app/static/app.js

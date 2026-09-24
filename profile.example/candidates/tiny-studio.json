@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "id": "tiny-studio",
+  "name": "Tiny Studio on 6th",
+  "kind": "apartment",
+  "status": "rejected",
+  "is_baseline": false,
+  "location": {
+    "address": "600 Example Ave, Harborview",
+    "neighborhood": "Midtown",
+    "lat": 39.996,
+    "lng": -74.999,
+    "precision": "approximate"
+  },
+  "facts": {
+    "base_rent": {
+      "value": 1600,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "parking_monthly": {
+      "value": 0,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "required_monthly_fees": {
+      "value": 30,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "move_in_cost": {
+      "value": 1600,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "anchor_minutes": {
+      "value": {
+        "work": {
+          "walk": 10,
+          "drive": 5
+        },
+        "gym": {
+          "walk": 5,
+          "drive": 3
+        }
+      },
+      "kind": "commute",
+      "source": "https://example.com/maps",
+      "checked": "2026-09-01",
+      "confidence": "medium"
+    }
+  },
+  "risk_flags": [
+    {
+      "id": "studio_unit"
+    }
+  ],
+  "judgments": {
+    "cost_value": {
+      "score": 9,
+      "rationale": "Fictional sample rationale for cost value.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "daily_lifestyle": {
+      "score": 7,
+      "rationale": "Fictional sample rationale for daily lifestyle.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "social_life": {
+      "score": 7,
+      "rationale": "Fictional sample rationale for social life.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "work_and_focus": {
+      "score": 6,
+      "rationale": "Fictional sample rationale for work and focus.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "space_and_quiet": {
+      "score": 4,
+      "rationale": "Fictional sample rationale for space and quiet.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "friction_risk": {
+      "score": 7,
+      "rationale": "Fictional sample rationale for friction risk.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    }
+  },
+  "notes": {
+    "parking": "Garage, fictional"
+  },
+  "source_urls": [
+    "https://example.com/listings/tiny-studio"
+  ],
+  "verdict": "Studio; rejected.",
+  "created_at": "2026-09-01T12:00:00Z",
+  "updated_at": "2026-09-15T12:00:00Z",
+  "version": 1
+}

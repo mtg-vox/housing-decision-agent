@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "id": "harbor-lofts",
+  "name": "Harbor Lofts",
+  "kind": "apartment",
+  "status": "active",
+  "is_baseline": false,
+  "location": {
+    "address": "200 Example Ave, Harborview",
+    "neighborhood": "Old Harbor",
+    "lat": 40.006,
+    "lng": -74.996,
+    "precision": "approximate"
+  },
+  "facts": {
+    "base_rent": {
+      "value": 2050,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "parking_monthly": {
+      "value": 125,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "required_monthly_fees": {
+      "value": 60,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "move_in_cost": {
+      "value": 2400,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "anchor_minutes": {
+      "value": {
+        "work": {
+          "walk": 12,
+          "drive": 6
+        },
+        "gym": {
+          "walk": 8,
+          "drive": 4
+        }
+      },
+      "kind": "commute",
+      "source": "https://example.com/maps",
+      "checked": "2026-09-01",
+      "confidence": "medium"
+    }
+  },
+  "risk_flags": [],
+  "judgments": {
+    "cost_value": {
+      "score": 7,
+      "rationale": "Fictional sample rationale for cost value.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "daily_lifestyle": {
+      "score": 9,
+      "rationale": "Fictional sample rationale for daily lifestyle.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "social_life": {
+      "score": 9,
+      "rationale": "Fictional sample rationale for social life.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "work_and_focus": {
+      "score": 8,
+      "rationale": "Fictional sample rationale for work and focus.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "space_and_quiet": {
+      "score": 7,
+      "rationale": "Fictional sample rationale for space and quiet.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "friction_risk": {
+      "score": 7,
+      "rationale": "Fictional sample rationale for friction risk.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    }
+  },
+  "notes": {
+    "parking": "Garage, fictional"
+  },
+  "source_urls": [
+    "https://example.com/listings/harbor-lofts"
+  ],
+  "verdict": "Strong all-rounder.",
+  "created_at": "2026-09-01T12:00:00Z",
+  "updated_at": "2026-09-15T12:00:00Z",
+  "version": 1
+}

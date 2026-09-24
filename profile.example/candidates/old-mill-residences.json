@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "id": "old-mill-residences",
+  "name": "Old Mill Residences",
+  "kind": "apartment",
+  "status": "active",
+  "is_baseline": false,
+  "location": {
+    "address": "700 Example Ave, Harborview",
+    "neighborhood": "Riverside",
+    "lat": 40.001,
+    "lng": -75.011,
+    "precision": "approximate"
+  },
+  "facts": {
+    "base_rent": {
+      "value": 1950,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-05-01",
+      "confidence": "high"
+    },
+    "parking_monthly": {
+      "value": 100,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-05-01",
+      "confidence": "high"
+    },
+    "required_monthly_fees": {
+      "value": 50,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-05-01",
+      "confidence": "high"
+    },
+    "move_in_cost": {
+      "value": 2200,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-05-01",
+      "confidence": "high"
+    },
+    "anchor_minutes": {
+      "value": {
+        "work": {
+          "walk": 40,
+          "drive": 15
+        },
+        "gym": {
+          "walk": 25,
+          "drive": 10
+        }
+      },
+      "kind": "commute",
+      "source": "https://example.com/maps",
+      "checked": "2026-09-01",
+      "confidence": "medium"
+    }
+  },
+  "risk_flags": [
+    {
+      "id": "traffic_noise"
+    }
+  ],
+  "judgments": {
+    "cost_value": {
+      "score": 8,
+      "rationale": "Fictional sample rationale for cost value.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "daily_lifestyle": {
+      "score": 6,
+      "rationale": "Fictional sample rationale for daily lifestyle.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "social_life": {
+      "score": 5,
+      "rationale": "Fictional sample rationale for social life.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "work_and_focus": {
+      "score": 7,
+      "rationale": "Fictional sample rationale for work and focus.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "space_and_quiet": {
+      "score": 9,
+      "rationale": "Fictional sample rationale for space and quiet.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "friction_risk": {
+      "score": 7,
+      "rationale": "Fictional sample rationale for friction risk.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    }
+  },
+  "notes": {
+    "parking": "Garage, fictional"
+  },
+  "source_urls": [
+    "https://example.com/listings/old-mill-residences"
+  ],
+  "verdict": "Pricing needs refresh.",
+  "created_at": "2026-09-01T12:00:00Z",
+  "updated_at": "2026-09-15T12:00:00Z",
+  "version": 1
+}

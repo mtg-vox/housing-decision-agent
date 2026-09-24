@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "id": "current-home",
+  "name": "Current Home (baseline)",
+  "kind": "apartment",
+  "status": "baseline",
+  "is_baseline": true,
+  "location": {
+    "address": "100 Example Ave, Harborview",
+    "neighborhood": "Riverside",
+    "lat": 40.002,
+    "lng": -75.004,
+    "precision": "approximate"
+  },
+  "facts": {
+    "base_rent": {
+      "value": 1900,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "parking_monthly": {
+      "value": 100,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "required_monthly_fees": {
+      "value": 50,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "move_in_cost": {
+      "value": 0,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "anchor_minutes": {
+      "value": {
+        "work": {
+          "walk": 35,
+          "drive": 14
+        },
+        "gym": {
+          "walk": 20,
+          "drive": 8
+        }
+      },
+      "kind": "commute",
+      "source": "https://example.com/maps",
+      "checked": "2026-09-01",
+      "confidence": "medium"
+    }
+  },
+  "risk_flags": [],
+  "judgments": {
+    "cost_value": {
+      "score": 7,
+      "rationale": "Fictional sample rationale for cost value.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "daily_lifestyle": {
+      "score": 6,
+      "rationale": "Fictional sample rationale for daily lifestyle.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "social_life": {
+      "score": 5,
+      "rationale": "Fictional sample rationale for social life.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "work_and_focus": {
+      "score": 6,
+      "rationale": "Fictional sample rationale for work and focus.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "space_and_quiet": {
+      "score": 7,
+      "rationale": "Fictional sample rationale for space and quiet.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "friction_risk": {
+      "score": 7,
+      "rationale": "Fictional sample rationale for friction risk.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    }
+  },
+  "notes": {
+    "parking": "Garage, fictional"
+  },
+  "source_urls": [
+    "https://example.com/listings/current-home"
+  ],
+  "verdict": "Where Alex lives today.",
+  "created_at": "2026-09-01T12:00:00Z",
+  "updated_at": "2026-09-15T12:00:00Z",
+  "version": 1
+}

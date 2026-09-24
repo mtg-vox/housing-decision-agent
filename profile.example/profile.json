@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "name": "Alex Example",
+  "region": "example",
+  "currency": "USD",
+  "budget": {
+    "ideal_min": 1800,
+    "ideal_max": 2200,
+    "soft_ceiling": 2400,
+    "hard_ceiling": 2700,
+    "basis": "all_in_monthly"
+  },
+  "unit": {
+    "min_bedrooms": 1,
+    "allow_studio": false
+  },
+  "categories": [
+    {
+      "id": "cost_value",
+      "label": "Cost & value",
+      "weight": 0.2
+    },
+    {
+      "id": "daily_lifestyle",
+      "label": "Daily lifestyle",
+      "weight": 0.2
+    },
+    {
+      "id": "social_life",
+      "label": "Social life",
+      "weight": 0.15
+    },
+    {
+      "id": "work_and_focus",
+      "label": "Work & focus",
+      "weight": 0.15
+    },
+    {
+      "id": "space_and_quiet",
+      "label": "Space & quiet",
+      "weight": 0.15
+    },
+    {
+      "id": "friction_risk",
+      "label": "Friction & risk",
+      "weight": 0.15
+    }
+  ],
+  "anchors": [
+    {
+      "id": "work",
+      "label": "Workplace",
+      "visits_per_week": 3,
+      "modes": [
+        "walk",
+        "drive"
+      ],
+      "adjustments": [
+        {
+          "max_minutes": 15,
+          "delta": 0.3
+        },
+        {
+          "max_minutes": 25,
+          "delta": 0.0
+        },
+        {
+          "max_minutes": 40,
+          "delta": -0.25
+        },
+        {
+          "max_minutes": null,
+          "delta": -0.5
+        }
+      ]
+    },
+    {
+      "id": "gym",
+      "label": "Gym",
+      "visits_per_week": 4,
+      "modes": [
+        "walk",
+        "drive"
+      ],
+      "adjustments": [
+        {
+          "max_minutes": 10,
+          "delta": 0.2
+        },
+        {
+          "max_minutes": 20,
+          "delta": 0.0
+        },
+        {
+          "max_minutes": null,
+          "delta": -0.2
+        }
+      ]
+    }
+  ],
+  "risk_caps": {
+    "flood_exposed_parking": {
+      "target": "friction_risk",
+      "cap": 5.0
+    },
+    "heavy_construction_adjacent": {
+      "target": "total_score",
+      "cap": 7.0
+    },
+    "traffic_noise": {
+      "target": "space_and_quiet",
+      "cap": 6.0
+    }
+  },
+  "reject_flags": [
+    "studio_unit"
+  ],
+  "staleness_days": {
+    "pricing": 30,
+    "availability": 14,
+    "flood": 365,
+    "construction": 90,
+    "commute": 180
+  },
+  "display": {
+    "lease_end": "2026-12-31",
+    "move_window": {
+      "start": "2026-10-15",
+      "end": "2026-12-15"
+    },
+    "map_center": [
+      40.0,
+      -75.0
+    ],
+    "facts": [
+      {
+        "label": "City",
+        "value": "Harborview (fictional)"
+      },
+      {
+        "label": "Household",
+        "value": "1 adult, no pets"
+      }
+    ]
+  },
+  "areas": [
+    {
+      "id": "old_harbor",
+      "label": "Old Harbor",
+      "match": [
+        "old harbor"
+      ]
+    },
+    {
+      "id": "midtown",
+      "label": "Midtown",
+      "match": [
+        "midtown"
+      ]
+    },
+    {
+      "id": "riverside",
+      "label": "Riverside",
+      "match": [
+        "riverside"
+      ]
+    }
+  ],
+  "flag_labels": {
+    "flood_exposed_parking": "Flood-exposed parking",
+    "heavy_construction_adjacent": "Heavy construction adjacent",
+    "traffic_noise": "Traffic noise",
+    "studio_unit": "Studio unit"
+  },
+  "note_fields": [
+    {
+      "id": "amenity_notes",
+      "label": "Amenities",
+      "placeholder": "Gym, laundry, storage, bike room"
+    }
+  ]
+}

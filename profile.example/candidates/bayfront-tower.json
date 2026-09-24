@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "id": "bayfront-tower",
+  "name": "Bayfront Tower",
+  "kind": "apartment",
+  "status": "active",
+  "is_baseline": false,
+  "location": {
+    "address": "800 Example Ave, Harborview",
+    "neighborhood": "Midtown",
+    "lat": 39.999,
+    "lng": -74.995,
+    "precision": "approximate"
+  },
+  "facts": {
+    "base_rent": {
+      "value": 2250,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "parking_monthly": {
+      "value": 175,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "required_monthly_fees": {
+      "value": 80,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "move_in_cost": {
+      "value": 2800,
+      "kind": "pricing",
+      "source": "https://example.com/listings",
+      "checked": "2026-09-15",
+      "confidence": "high"
+    },
+    "anchor_minutes": {
+      "value": {
+        "work": {
+          "walk": 14,
+          "drive": 6
+        },
+        "gym": {
+          "walk": 10,
+          "drive": 5
+        }
+      },
+      "kind": "commute",
+      "source": "https://example.com/maps",
+      "checked": "2026-09-01",
+      "confidence": "medium"
+    }
+  },
+  "risk_flags": [],
+  "judgments": {
+    "cost_value": {
+      "score": 6,
+      "rationale": "Fictional sample rationale for cost value.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "daily_lifestyle": {
+      "score": 8,
+      "rationale": "Fictional sample rationale for daily lifestyle.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    },
+    "social_life": {
+      "score": 8,
+      "rationale": "Fictional sample rationale for social life.",
+      "evidence": [
+        "facts.base_rent"
+      ],
+      "by": "test:example",
+      "at": "2026-09-15T12:00:00Z"
+    }
+  },
+  "notes": {
+    "parking": "Garage, fictional"
+  },
+  "source_urls": [
+    "https://example.com/listings/bayfront-tower"
+  ],
+  "verdict": "Not fully scored yet.",
+  "created_at": "2026-09-01T12:00:00Z",
+  "updated_at": "2026-09-15T12:00:00Z",
+  "version": 1
+}

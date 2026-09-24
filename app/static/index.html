@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta name="housing-token" content="__HOUSING_TOKEN__">
+    <title>Housing Decision Dashboard</title>
+    <link rel="stylesheet" href="/vendor/leaflet-1.9.4/leaflet.css">
+    <link rel="stylesheet" href="/vendor/leaflet.markercluster-1.5.3/MarkerCluster.css">
+    <link rel="stylesheet" href="/vendor/leaflet.markercluster-1.5.3/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="/styles.css?v=20260426b">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Local housing decision agent</p>
+          <h1>Decision Dashboard</h1>
+          <p class="lede">Rank apartments, condos, and houses against your current home with cost, lifestyle, risk, and logistics in view.</p>
+          <p id="readOnlyBanner" class="rent-warning show" hidden>Showing the read-only fictional demo. To use your own budget, places and homes, run <code>housing init</code> in a terminal (or ask your AI agent to set it up), then restart the dashboard. See <code>docs/SETUP.md</code>.</p>
+        </div>
+      </header>
+
+      <section class="summary-grid" aria-label="Dashboard summary">
+        <div class="metric">
+          <span>Total Candidates</span>
+          <strong id="metricTotal">0</strong>
+        </div>
+        <div class="metric">
+          <span>Live Candidates</span>
+          <strong id="metricLive">0</strong>
+        </div>
+        <div class="metric">
+          <span>Best Score</span>
+          <strong id="metricBestScore">-</strong>
+        </div>
+        <div class="metric">
+          <span>Budget Guardrail</span>
+          <strong id="metricBudget">-</strong>
+        </div>
+      </section>
+
+      <section class="panel profile-panel baseline-strip">
+        <div class="baseline-head">
+          <div>
+            <p class="eyebrow">Baseline</p>
+            <h2 id="baselineTitle">Baseline</h2>
+          </div>
+          <p>Your current home is the comparison anchor. Any move has to beat it on lived upside, not just novelty.</p>
+        </div>
+        <dl id="profileFacts"></dl>
+      </section>
+
+      <section class="panel map-panel" aria-labelledby="mapTitle">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Location view</p>
+            <h2 id="mapTitle">Candidate Map</h2>
+          </div>
+          <p class="hint">Tap a marker or a ranked option to keep the score dashboard locked to the same building.</p>
+        </div>
+        <p class="hint" id="mapPrivacyNotice">Maps are off by default. Enabling maps sends your IP address and viewed area to OpenStreetMap. This choice lasts only for this tab; disabling maps stops further tile requests.</p>
+        <label><input type="checkbox" id="externalMapsToggle" aria-describedby="mapPrivacyNotice"> Enable OpenStreetMap for this tab</label>
+        <div class="map-layout">
+          <div id="candidateMap" class="candidate-map" aria-label="Candidate locations map"></div>
+          <aside id="mapSelection" class="map-selection" aria-live="polite"></aside>
+        </div>
+      </section>
+
+      <section class="decision-layout">
+        <section class="panel primary-panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Ranked options</p>
+              <h2>Quick Pick</h2>
+            </div>
+            <div class="tools">
+              <input id="candidateSearch" type="search" placeholder="Filter candidates">
+              <select id="statusFilter" aria-label="Filter by status">
+                <option value="all">All statuses</option>
+                <option value="baseline">Baseline</option>
+                <option value="active">Active</option>
+                <option value="watchlist">Watchlist</option>
+                <option value="tour">Tour</option>
+                <option value="negotiate">Negotiate</option>
+                <option value="rejected">Rejected</option>
+                <option value="archived">Archived</option>
+              </select>
+              <select id="areaFilter" aria-label="Filter by area">
+                <option value="all">All areas</option>
+              </select>
+              <select id="candidateSort" aria-label="Sort candidates">
+                <option value="default">Sort: default rank</option>
+                <option value="area">Sort: area</option>
+                <option value="score">Sort: score</option>
+                <option value="rent">Sort: rent</option>
+                <option value="name">Sort: name</option>
+              </select>
+            </div>
+          </div>
+          <div id="activeFilters" class="active-filters" hidden></div>
+          <div id="candidateList" class="candidate-list" tabindex="0" aria-label="Candidate list (use up and down arrows to navigate)"></div>
+        </section>
+
+        <section class="panel breakdown-panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Scores</p>
+              <h2>Selected Candidate Breakdown</h2>
+            </div>
+            <div class="detail-tools">
+              <button type="button" class="secondary" id="editSelectedBtn">Edit selected</button>
+              <button type="button" class="secondary" id="setAnchorBtn" title="Use selected candidate as the comparison anchor instead of the baseline">Pin as compare anchor</button>
+            </div>
+          </div>
+          <canvas id="scoreChart" width="720" height="320" aria-label="Candidate score chart"></canvas>
+          <div id="candidateDetail" class="detail"></div>
+        </section>
+      </section>
+
+      <section class="panel ledger-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Decision trail</p>
+            <h2>Decision Ledger</h2>
+          </div>
+        </div>
+        <div id="ledgerList" class="ledger-list"></div>
+      </section>
+
+      <section class="panel prefs-panel">
+        <details id="prefsWrap">
+        <summary class="intake-summary">
+          <div>
+            <p class="eyebrow">Weights, budget, deal-breakers</p>
+            <h2>Preferences</h2>
+          </div>
+        </summary>
+        <p id="prefsReadOnly" class="prefs-notice" hidden>This profile is read-only (example data). You can preview changes here; create ./profile.local or set HOUSING_PROFILE_DIR to save preferences.</p>
+        <form id="prefsForm" class="prefs-form">
+          <fieldset id="prefsFields">
+            <h3>Category weights</h3>
+            <div id="prefsWeights" class="prefs-weights"></div>
+            <p class="prefs-total">Total: <strong id="prefsTotal">-</strong> <button type="button" id="prefsNormalize">Normalize</button></p>
+            <h3>Budget (all-in monthly)</h3>
+            <div class="prefs-budget">
+              <label>Ideal min <input type="number" name="ideal_min" min="0" step="25"></label>
+              <label>Ideal max <input type="number" name="ideal_max" min="0" step="25"></label>
+              <label>Soft ceiling <input type="number" name="soft_ceiling" min="0" step="25"></label>
+              <label>Hard ceiling <input type="number" name="hard_ceiling" min="0" step="25"></label>
+            </div>
+            <h3>Reject outright if flagged</h3>
+            <div id="prefsRejectFlags" class="prefs-flags"></div>
+            <label class="prefs-reason">Reason <input type="text" name="reason" maxlength="500" placeholder="Why change this?"></label>
+            <div class="prefs-actions">
+              <button type="button" id="prefsPreview">Preview impact</button>
+              <button type="submit" id="prefsPropose">Propose change</button>
+              <button type="button" id="prefsReset">Reset</button>
+            </div>
+            <p id="prefsMessage" class="form-message" role="status"></p>
+          </fieldset>
+        </form>
+        <div id="prefsPreviewOut" class="prefs-preview"></div>
+        <h3>Pending proposals</h3>
+        <div id="prefsProposals" class="prefs-proposals"></div>
+        </details>
+      </section>
+
+      <section class="panel intake-panel">
+        <details id="intakeWrap">
+        <summary class="intake-summary">
+          <div>
+            <p class="eyebrow">Add or update</p>
+            <h2>Candidate Intake</h2>
+          </div>
+          <p class="hint">Click to expand. Save only serious options: buildings, units, listings, or neighborhoods worth remembering.</p>
+        </summary>
+
+        <form id="candidateForm" class="candidate-form">
+          <div class="form-grid">
+            <label>Name
+              <input name="name" required placeholder="Example: Harbor Lofts 1BR">
+            </label>
+            <label>Kind
+              <select name="kind">
+                <option value="building">Building</option>
+                <option value="unit">Unit</option>
+                <option value="listing">Listing</option>
+                <option value="neighborhood">Neighborhood</option>
+              </select>
+            </label>
+            <label>Status
+              <select name="status">
+                <option value="active">Active</option>
+                <option value="watchlist">Watchlist</option>
+                <option value="tour">Tour</option>
+                <option value="negotiate">Negotiate</option>
+                <option value="rejected">Rejected</option>
+                <option value="archived">Archived</option>
+              </select>
+            </label>
+            <label>Neighborhood
+              <input name="neighborhood" placeholder="Neighborhood">
+            </label>
+            <label>Address
+              <input name="address" placeholder="Building address">
+            </label>
+            <label>Unit Type
+              <input name="unit_type" placeholder="1BR">
+            </label>
+            <label>Base Rent
+              <input name="base_rent" type="number" min="0" step="1" placeholder="2200">
+            </label>
+            <label>Estimated All-In
+              <input name="all_in_monthly_cost" type="number" min="0" step="1" placeholder="2400">
+            </label>
+            <label>Pricing Snapshot
+              <input name="pricing_notes" placeholder="1BR from 2,200; 2BR from 3,000; parking TBD">
+            </label>
+            <label>Move-In Cost
+              <input name="move_in_cost" type="number" min="0" step="1" placeholder="0">
+            </label>
+            <label>Floor
+              <input name="floor" placeholder="High floor, 22, unknown">
+            </label>
+            <label>View
+              <input name="view" placeholder="Bay, city, traffic-facing, unknown">
+            </label>
+            <label>Source URLs
+              <input name="source_urls" placeholder="Paste URLs separated by commas">
+            </label>
+            <label><span class="anchor-label">Anchor</span> walk minutes
+              <input name="walk_minutes" type="number" min="0" step="1" placeholder="15">
+            </label>
+            <label><span class="anchor-label">Anchor</span> drive minutes
+              <input name="drive_minutes" type="number" min="0" step="1" placeholder="20">
+            </label>
+          </div>
+
+          <div class="form-grid textarea-grid">
+            <label>Parking
+              <textarea name="parking" rows="3" placeholder="Garage level, assigned, elevated, flood exposure"></textarea>
+            </label>
+            <label>Risk Notes
+              <textarea name="risk_notes" rows="3" placeholder="Construction, flood, air quality, traffic, elevators"></textarea>
+            </label>
+            <label>Commute Notes
+              <textarea name="commute_notes" rows="3" placeholder="Commute friction, bridges, parking, rideshare"></textarea>
+            </label>
+            <label>Verdict
+              <textarea name="verdict" rows="3" placeholder="Short decision note"></textarea>
+            </label>
+          </div>
+
+          <div class="score-grid" id="scoreInputs"></div>
+          <div class="risk-grid" id="riskFlags"></div>
+
+          <div class="actions">
+            <button type="submit">Save Candidate</button>
+            <button type="reset" class="secondary">Clear Form</button>
+            <button type="button" id="cancelEditBtn" class="secondary" hidden>Cancel edit</button>
+            <span id="formMessage" role="status"></span>
+          </div>
+          <div class="form-grid textarea-grid" id="customNoteFields"></div>
+        </form>
+        </details>
+      </section>
+
+      <section class="grid-two">
+        <section class="panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Research helper</p>
+              <h2>Agent Brief Composer</h2>
+            </div>
+          </div>
+          <form id="briefForm" class="brief-form">
+            <label>Target
+              <input name="target" placeholder="Candidate id or name, or a new option">
+            </label>
+            <label>Question
+              <textarea name="question" rows="4" placeholder="What do you want the agent to decide or research?"></textarea>
+            </label>
+            <button type="submit">Generate Brief</button>
+          </form>
+          <pre id="briefOutput" class="brief-output"></pre>
+        </section>
+
+        <section class="panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Research coverage</p>
+              <h2>Source Registry</h2>
+            </div>
+          </div>
+          <div id="sourceRegistry" class="source-list"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="/vendor/leaflet-1.9.4/leaflet.js"></script>
+    <script src="/vendor/leaflet.markercluster-1.5.3/leaflet.markercluster.js"></script>
+    <script src="/app.js?v=20260426b"></script>
+  </body>
+</html>
